@@ -20,6 +20,7 @@ class App extends React.Component {
             {title: 'Redux', isDone: false, priority: 'low'}
         ],
         filterValue: "All"
+        // isHidden: false
     }
 
     onAddTaskClick = (newText) => {
@@ -63,7 +64,8 @@ class App extends React.Component {
                                 return t.isDone === false
                             }
                         })}/>
-                    <TodoListFooter filterValue={this.state.filterValue} changeFilter={this.changeFilter}/>
+                    <TodoListFooter isHidden={this.state.isHidden} filterValue={this.state.filterValue}
+                                    changeFilter={this.changeFilter}/>
                 </div>
             </div>
         );

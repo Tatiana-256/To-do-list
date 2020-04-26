@@ -3,10 +3,8 @@ import React from "react";
 
 const TodoListTitle = (props) => {
     return <div>
-        <h3 className="todoList-header__title">{props.title}</h3>
-        <div className="todoList-newTaskForm">
+        <h3>{props.title}</h3>
         </div>
-    </div>
 }
 
 export default TodoListTitle

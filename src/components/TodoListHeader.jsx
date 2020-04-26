@@ -5,40 +5,9 @@ import AddNewItemForm from "./AddNewItemForm";
 
 class TodoListHeader extends React.Component {
 
-    // state = {
-    //     error: true,
-    //     title: ''
-    // }
-    //
-    //
-    // onAddTaskClick = () => {
-    //     let newTask = this.state.title
-    //     this.setState({title: ''})
-    //     if (newTask === '') {
-    //         this.setState({error: true})
-    //     } else {
-    //         this.setState({error: false})
-    //         this.props.onAddTaskClick(newTask)
-    //     }
-    //
-    // }
-    //
-    // onTitleChange = (event) => {
-    //     this.setState({
-    //         error: false,
-    //         title: event.currentTarget.value
-    //     })
-    // }
-    //
-    // onKeyPress = (e) => {
-    //     if (e.key === "Enter") {
-    //         this.onAddTaskClick()
-    //     }
-    // }
-
-
     render() {
-        return (<div className="todoList-header">
+        return (
+            <div className="todoList-header">
                 <TodoListTitle title={this.props.title}/>
                 <AddNewItemForm/>
                 {/*<h3 className="todoList-header__title">{this.props.title}</h3>*/}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 class TodoListFooter extends React.Component {
-    state = {isHidden: false}
+    state = {isHidden: true}
 
     hideShow = () => {
         this.setState({isHidden: !this.state.isHidden})
@@ -19,9 +19,9 @@ class TodoListFooter extends React.Component {
 
 
     render() {
-        let classForAll = this.props.filterValue === "All" ? "filter-active" : "";
-        let classForCompleted = this.props.filterValue === "Completed" ? "filter-active" : "";
-        let classForActive = this.props.filterValue === "Active" ? "filter-active" : "";
+        let classForAll = this.props.filterValue === "All" ? "filter-active" : "normal";
+        let classForCompleted = this.props.filterValue === "Completed" ? "filter-active" : "normal";
+        let classForActive = this.props.filterValue === "Active" ? "filter-active" : "normal";
 
         return (
             <div className="todoList-footer">
@@ -33,8 +33,12 @@ class TodoListFooter extends React.Component {
                     <button className={classForActive} onClick={this.onActiveFilterClick}>Active
                     </button>
                 </div>}
-                {this.state.isHidden ? <span onClick={this.hideShow}>Hide</span> :
-                    <span onClick={this.hideShow}>Show</span>}
+                {this.state.isHidden ? <div>
+                        <button onClick={this.hideShow} className='btn'>Hide</button>
+                    </div> :
+                    <div>
+                        <button onClick={this.hideShow} className='btn'>Show</button>
+                    </div>}
             </div>
         );
     }

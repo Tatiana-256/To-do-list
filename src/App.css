@@ -1,11 +1,24 @@
 .App {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    background-color: aliceblue;
+    height: 100vh;
 }
 
+.header {
+    text-align: center;
+    background-color: #ffffd1;
+    border: 1px solid black
+}
+
+.toDo{
+ display: flex;
+}
 .todoList {
-    width: 500px;
+    width: 700px;
     margin: 0 auto;
+
+
 }
 
 .todoList > div {
@@ -13,10 +26,31 @@
 }
 
 .filter-active {
-    background-color: blue;
+    background-color: #ffcbe4;
+    width: 80px;
+    height: 30px;
+
 }
 
+.normal {
+    background-color: yellow;
+    width: 80px;
+    height: 30px;
+}
 
 .error {
     border-color: red;
+}
+
+.todoList-newTaskForm {
+    margin: 20px 20px;
+}
+
+.btn {
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: greenyellow;
+
 }

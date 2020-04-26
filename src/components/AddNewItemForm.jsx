@@ -41,7 +41,7 @@ class AddNewItemForm extends React.Component {
                        placeholder="New task name"
                        className={this.state.error ? 'error' : ''}
                 />
-                <button onClick={this.onAddItemClick}>Add</button>
+                <button onClick={this.onAddItemClick} className='btn'>Add</button>
             </div>
         </div>
     }

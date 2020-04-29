@@ -5,6 +5,7 @@ import TodoListTasks from "./components/TodoListTasks";
 import TodoListFooter from "./components/TodoListFooter";
 import TodoListTitle from "./components/TodoListTitle";
 import AddNewItemForm from "./components/AddNewItemForm";
+import {connect} from "react-redux";
 
 class ToDoList extends React.Component {
 
@@ -34,7 +35,7 @@ class ToDoList extends React.Component {
             task: [],
             filterValue: "All"
         }
-        let stateAsString = localStorage.getItem('our-state'+ this.props.id)
+        let stateAsString = localStorage.getItem('our-state' + this.props.id)
         if (stateAsString) {
             state = JSON.parse(stateAsString)
         }
@@ -55,10 +56,12 @@ class ToDoList extends React.Component {
             priority: 'low'
         }
         this.nextTaskId++
-        let newTasks = [...this.state.tasks, newTask]
-        this.setState({tasks: newTasks}, () => {
-            this.saveState()
-        })
+
+        this.props.addTask(this.props.id, newTask)
+        // let newTasks = [...this.state.tasks, newTask]
+        // this.setState({tasks: newTasks}, () => {
+        //     this.saveState()
+        // })
 
     }
 
@@ -69,11 +72,19 @@ class ToDoList extends React.Component {
     }
 
     changeStatus = (taskId, isDone) => {
-        this.changeTask(taskId, {isDone: isDone})
+        this.props.changeTask(this.props.id, taskId, {isDone: isDone})
     }
 
     changeTitle = (taskId, title) => {
-        this.changeTask(taskId, {title: title})
+        this.props.changeTask(this.props.id, taskId, {title: title})
+    }
+
+    deleteToDoList = () => {
+        this.props.deleteToDoList(this.props.id)
+    }
+
+    deleteTask = (taskId) => {
+        this.props.deleteTask(this.props.id, taskId)
     }
 
     changeTask = (taskId, obj) => {
@@ -85,37 +96,79 @@ class ToDoList extends React.Component {
                 }
             }
         )
-        this.setState({tasks: newTasks}, () => {
-            this.saveState()
-        })
+
+        this.props.сhangeTask(newTasks)
+        // this.setState({tasks: newTasks}, () => {
+        //     this.saveState()
+        // })
     }
 
 
     render = () => {
+        console.log(this.props.task)
         return (
-                <div className="todoList">
-                    <TodoListTitle title={this.props.title}/>
-                    <AddNewItemForm addItem={this.addItem}/>
-                    <TodoListTasks
-                        changeTitle={this.changeTitle}
-                        changeStatus={this.changeStatus}
-                        tasks={this.state.tasks.filter(t => {
-                            if (this.state.filterValue === 'All') {
-                                return true
-                            }
-                            if (this.state.filterValue === 'Completed') {
-                                return t.isDone === true
-                            }
-                            if (this.state.filterValue === 'Active') {
-                                return t.isDone === false
-                            }
-                        })}/>
-                    <TodoListFooter isHidden={this.state.isHidden} filterValue={this.state.filterValue}
-                                    changeFilter={this.changeFilter}/>
-                </div>
+            <div className="todoList">
+                <TodoListTitle title={this.props.title}/>
+                <AddNewItemForm addItem={this.addItem}/>
+                <TodoListTasks
+                    changeTitle={this.changeTitle}
+                    changeStatus={this.changeStatus}
+                    tasks={this.props.task.filter(t => {
+                        if (this.state.filterValue === 'All') {
+                            return true
+                        }
+                        if (this.state.filterValue === 'Completed') {
+                            return t.isDone === true
+                        }
+                        if (this.state.filterValue === 'Active') {
+                            return t.isDone === false
+                        }
+                    })}/>
+                <TodoListFooter isHidden={this.state.isHidden} filterValue={this.state.filterValue}
+                                changeFilter={this.changeFilter}/>
+            </div>
         );
     }
 }
 
-export default ToDoList;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addTask: (toDoListId, newTask) => {
+            const action = {
+                type: 'ADD_TASK',
+                newTask,
+                toDoListId
+            }
+            dispatch(action)
+        },
+        сhangeTask: (toDoListId, taskId, obj) => {
+            const action = {
+                type: 'CHANGE_TASK',
+                taskId,
+                toDoListId,
+                obj
+            }
+            dispatch(action)
+        },
+        deleteToDoList: (toDoListId) => {
+            const action = {
+                type: 'DELETE_TODOLIST',
+                toDoListId,
+            }
+            dispatch(action)
+        },
+        deleteTask: (toDoListId, taskId) => {
+            const action = {
+                type: 'DELETE_TASK',
+                toDoListId,
+                taskId
+            }
+            dispatch(action)
+        }
+    }
+}
+
+
+export default connect(null, mapDispatchToProps)(ToDoList)
 

@@ -56,12 +56,7 @@ class ToDoList extends React.Component {
             priority: 'low'
         }
         this.nextTaskId++
-
         this.props.addTask(this.props.id, newTask)
-        // let newTasks = [...this.state.tasks, newTask]
-        // this.setState({tasks: newTasks}, () => {
-        //     this.saveState()
-        // })
 
     }
 
@@ -98,14 +93,12 @@ class ToDoList extends React.Component {
         )
 
         this.props.сhangeTask(newTasks)
-        // this.setState({tasks: newTasks}, () => {
-        //     this.saveState()
-        // })
     }
 
 
     render = () => {
-        console.log(this.props.task)
+        debugger
+        console.log(this.props.tasks)
         return (
             <div className="todoList">
                 <TodoListTitle title={this.props.title}/>
@@ -113,7 +106,7 @@ class ToDoList extends React.Component {
                 <TodoListTasks
                     changeTitle={this.changeTitle}
                     changeStatus={this.changeStatus}
-                    tasks={this.props.task.filter(t => {
+                    tasks={this.props.tasks.filter(t => {
                         if (this.state.filterValue === 'All') {
                             return true
                         }
@@ -137,8 +130,8 @@ const mapDispatchToProps = (dispatch) => {
         addTask: (toDoListId, newTask) => {
             const action = {
                 type: 'ADD_TASK',
-                newTask,
-                toDoListId
+                newTask: newTask,
+                toDoListId: toDoListId
             }
             dispatch(action)
         },

@@ -2,8 +2,8 @@ import {createStore} from "redux";
 
 const initialState = {
     toDoLists: [
-        {id: 1, title: 'fgd', task: []},
-        {id: 2, title: 'fgdfd', task: []}
+        {id: 1, title: 'fgd', tasks: []},
+        {id: 2, title: 'fgdfd', tasks: []}
     ]
 }
 
@@ -16,17 +16,14 @@ const reducer = (state = initialState, action) => {
                 toDoLists: [...state.toDoLists, action.newList]
             }
         case 'ADD_TASK':
-            return {
-                ...state, toDoLists: state.toDoLists.map(list => {
-                        if (list.id !== action.toDoListId) {
-                            return list
-                        } else {
-                            return {...list, task: [list.task, action.newTask]}
-                        }
-                    }
-                )
-            }
-            
+            let newTasks = state.toDoLists.map(task => {
+                if (task.id !== action.toDoListId) {
+                    return task
+                } else {
+                    return {...task, tasks: [task.tasks, action.newTask]}
+                }    } )
+            return {...state, toDoLists: newTasks}
+
         case 'CHANGE_TASK':
             return {
                 ...state, toDoLists: state.toDoLists.map(list => {
@@ -34,11 +31,11 @@ const reducer = (state = initialState, action) => {
                             return list
                         } else {
                             return {
-                                ...list, task: [list.task.map(task => {
-                                    if (task.id !== action.toDoListId) {
-                                        return task
+                                ...list, tasks: [list.tasks.map(tasks => {
+                                    if (tasks.id !== action.toDoListId) {
+                                        return tasks
                                     } else {
-                                        return {...task, action.obj}
+                                        return {...tasks, action.obj}
                                     }
                                 })]
                             }

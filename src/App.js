@@ -39,6 +39,7 @@ class App extends React.Component {
         let newList = {
             id: this.nextToDoListId,
             title: toDoListName,
+            tasks:[]
         }
         this.nextToDoListId++
         debugger
@@ -47,12 +48,12 @@ class App extends React.Component {
 
     render = () => {
         debugger
-        let toDoList = this.props.toDoLists.map(list => <ToDoList id={list.id} title={list.title} task={list.task}/>)
+        let toDoList = this.props.toDoLists.map(list => <ToDoList id={list.id} title={list.title} tasks={list.tasks}/>)
         return (
             <div className="App">
                 <div className="header">
                     <h3>Add new list</h3>
-                    <AddNewItemForm addItem={this.props.addToDoList}/>
+                    <AddNewItemForm addItem={this.addToDoList}/>
                 </div>
                 <div className='toDo'>
                     {toDoList}

@@ -11,7 +11,6 @@ class ToDoList extends React.Component {
 
     constructor(props) {
         super(props);
-
     }
 
     componentDidMount() {
@@ -21,7 +20,6 @@ class ToDoList extends React.Component {
     state = {
         tasks: [],
         filterValue: "All",
-
     }
 
     nextTaskId = 0
@@ -67,11 +65,11 @@ class ToDoList extends React.Component {
     }
 
     changeStatus = (taskId, isDone) => {
-        this.props.changeTask(this.props.id, taskId, {isDone: isDone})
+        this.props.сhangeTask(this.props.id, taskId, {isDone: isDone})
     }
 
     changeTitle = (taskId, title) => {
-        this.props.changeTask(this.props.id, taskId, {title: title})
+        this.props.сhangeTask(this.props.id, taskId, {title: title})
     }
 
     deleteToDoList = () => {
@@ -82,30 +80,17 @@ class ToDoList extends React.Component {
         this.props.deleteTask(this.props.id, taskId)
     }
 
-    changeTask = (taskId, obj) => {
-        let newTasks = this.state.tasks.map(t => {
-                if (t.id != taskId) {
-                    return t
-                } else {
-                    return {...t, ...obj}
-                }
-            }
-        )
-
-        this.props.сhangeTask(newTasks)
-    }
-
-
     render = () => {
         debugger
         console.log(this.props.tasks)
         return (
             <div className="todoList">
-                <TodoListTitle title={this.props.title}/>
+                <TodoListTitle title={this.props.title} deleteToDoList={this.deleteToDoList}/>
                 <AddNewItemForm addItem={this.addItem}/>
                 <TodoListTasks
                     changeTitle={this.changeTitle}
                     changeStatus={this.changeStatus}
+                    deleteTask={this.deleteTask}
                     tasks={this.props.tasks.filter(t => {
                         if (this.state.filterValue === 'All') {
                             return true
@@ -138,9 +123,9 @@ const mapDispatchToProps = (dispatch) => {
         сhangeTask: (toDoListId, taskId, obj) => {
             const action = {
                 type: 'CHANGE_TASK',
-                taskId,
-                toDoListId,
-                obj
+                obj: obj,
+                taskId: taskId,
+                toDoListId: toDoListId
             }
             dispatch(action)
         },

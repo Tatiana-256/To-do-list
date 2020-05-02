@@ -20,22 +20,23 @@ const reducer = (state = initialState, action) => {
                 if (task.id !== action.toDoListId) {
                     return task
                 } else {
-                    return {...task, tasks: [task.tasks, action.newTask]}
-                }    } )
+                    return {...task, tasks: [...task.tasks, action.newTask]}
+                }
+            })
+            debugger
             return {...state, toDoLists: newTasks}
-
         case 'CHANGE_TASK':
             return {
-                ...state, toDoLists: state.toDoLists.map(list => {
-                        if (list.id !== action.toDoListId) {
-                            return list
+                ...state, toDoLists: state.toDoLists.map(task => {
+                        if (task.id !== action.toDoListId) {
+                            return task
                         } else {
                             return {
-                                ...list, tasks: [list.tasks.map(tasks => {
-                                    if (tasks.id !== action.toDoListId) {
-                                        return tasks
+                                ...task, tasks: [task.tasks.map(t => {
+                                    if (t.id !== action.taskId) {
+                                        return t
                                     } else {
-                                        return {...tasks, action.obj}
+                                        return {...t, ...action.obj}
                                     }
                                 })]
                             }
@@ -43,6 +44,25 @@ const reducer = (state = initialState, action) => {
                     }
                 )
             }
+        case 'DELETE_TODOLIST':
+            return {
+                ...state, toDoLists:
+                    state.toDoLists.filter(toDoList => toDoList.id !== action.toDoListId)
+            }
+        case 'DELETE_TASK':
+            return {
+                ...state,
+                toDoLists: state.toDoLists.map(todo => {
+                    if (todo.id !== action.toDoListId) {
+                        return todo
+                    } else {
+                        return {
+                            ...todo, tasks: todo.tasks.filter(task => task.id !== action.taskId)
+                        }
+                    }
+                })
+            }
+
     }
     return state;
 }

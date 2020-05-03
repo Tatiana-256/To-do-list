@@ -44,7 +44,7 @@ class TodoListTask extends React.Component {
                         <span onClick={this.activateEditMode}>
                             {this.props.task.id} - {this.props.task.title}
                         </span>}
-                    <button onClick={this.deleteTask}>x</button>
+                    <button className='delete' onClick={this.deleteTask}>x</button>
                 </div>
             </div>
         </div>

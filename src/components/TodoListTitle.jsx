@@ -5,7 +5,7 @@ const TodoListTitle = (props) => {
     return <div className='inpt'>
         <div><h3>{props.title}</h3></div>
         <div>
-            <button onClick={props.deleteToDoList}>x</button>
+            <button className='delete' onClick={props.deleteToDoList}>x</button>
         </div>
     </div>
 }

@@ -14,7 +14,6 @@ class TodoListTasks extends React.Component {
         return (
             <div className="todoList-task">
                 {taskElements}
-
             </div>
         );
     }

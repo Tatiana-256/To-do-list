@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
+import {connect} from "react-redux";
 
 import TodoListTasks from "./components/TodoListTasks";
 import TodoListFooter from "./components/TodoListFooter";
 import TodoListTitle from "./components/TodoListTitle";
 import AddNewItemForm from "./components/AddNewItemForm";
-import {connect} from "react-redux";
+import {addTaskAC, deleteTaskAC, deleteToDoListAC, сhangeTaskAC} from "./store/actions";
 
 class ToDoList extends React.Component {
 
@@ -81,8 +82,6 @@ class ToDoList extends React.Component {
     }
 
     render = () => {
-        debugger
-        console.log(this.props.tasks)
         return (
             <div className="todoList">
                 <TodoListTitle title={this.props.title} deleteToDoList={this.deleteToDoList}/>
@@ -113,40 +112,19 @@ class ToDoList extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTask: (toDoListId, newTask) => {
-            const action = {
-                type: 'ADD_TASK',
-                newTask: newTask,
-                toDoListId: toDoListId
-            }
-            dispatch(action)
+            dispatch(addTaskAC(toDoListId, newTask))
         },
         сhangeTask: (toDoListId, taskId, obj) => {
-            const action = {
-                type: 'CHANGE_TASK',
-                obj: obj,
-                taskId: taskId,
-                toDoListId: toDoListId
-            }
-            dispatch(action)
+            dispatch(сhangeTaskAC(toDoListId, taskId, obj))
         },
         deleteToDoList: (toDoListId) => {
-            const action = {
-                type: 'DELETE_TODOLIST',
-                toDoListId,
-            }
-            dispatch(action)
+            dispatch(deleteToDoListAC(toDoListId))
         },
         deleteTask: (toDoListId, taskId) => {
-            const action = {
-                type: 'DELETE_TASK',
-                toDoListId,
-                taskId
-            }
-            dispatch(action)
+            dispatch(deleteTaskAC(toDoListId, taskId))
         }
     }
 }
-
 
 export default connect(null, mapDispatchToProps)(ToDoList)
 

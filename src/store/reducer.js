@@ -3,12 +3,12 @@ export const ADD_TASK = 'todolist/reducer/ADD_TASK'
 export const CHANGE_TASK = "todolist/reducer/CHANGE_TASK"
 export const DELETE_TODOLIST = "todolist/reducer/DELETE_TODOLIST"
 export const DELETE_TASK = "todolist/reducer/DELETE_TASK"
-
+export const SET_TO_DO_LIST = 'todolist/reducer/SET_TO_DO_LIST'
 
 const initialState = {
     toDoLists: [
-        {id: 1, title: 'fgd', tasks: []},
-        {id: 2, title: 'fgdfd', tasks: []}
+        // {id: 1, title: 'fgd', tasks: []},
+        // {id: 2, title: 'fgdfd', tasks: []}
     ]
 }
 
@@ -19,6 +19,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 toDoLists: [...state.toDoLists, action.newList]
+            }
+        case SET_TO_DO_LIST:
+            return {
+                ...state,
+                toDoLists: action.todolists
             }
         case ADD_TASK:
             let newTasks = state.toDoLists.map(task => {

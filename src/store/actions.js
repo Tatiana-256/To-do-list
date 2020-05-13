@@ -1,4 +1,4 @@
-import {ADD_TASK, ADD_TO_DO_LIST, CHANGE_TASK, DELETE_TASK, DELETE_TODOLIST} from "./reducer";
+import {ADD_TASK, ADD_TO_DO_LIST, CHANGE_TASK, DELETE_TASK, DELETE_TODOLIST, SET_TO_DO_LIST} from "./reducer";
 
 export const addTaskAC = (toDoListId, newTask) => {
     return {
@@ -36,5 +36,12 @@ export const deleteTaskAC = (toDoListId, taskId) => {
         type: DELETE_TASK,
         toDoListId,
         taskId,
+    }
+}
+
+export const setToDoList = (todolists) => {
+    return {
+        type: SET_TO_DO_LIST,
+        todolists
     }
 }

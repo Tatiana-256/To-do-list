@@ -3,7 +3,8 @@ import './App.css';
 import {connect} from "react-redux";
 import ToDoList from "./ToDoList";
 import AddNewItemForm from "./components/AddNewItemForm";
-import {addTodolistAC} from "./store/actions";
+import {addTodolistAC, setToDoList} from "./store/actions";
+import axios from "axios";
 
 class App extends React.Component {
     state = {
@@ -12,6 +13,13 @@ class App extends React.Component {
 
     componentDidMount() {
         this.restoreState()
+    }
+
+    restoreState = () => {
+        axios.get("https://social-network.samuraijs.com/api/1.1/todo-lists", {withCredentials: true})
+            .then(res => {
+                this.props.setToDoList(res.data);
+            });
     }
 
     saveState = () => {
@@ -74,6 +82,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addToDoList: (newList) => {
             dispatch(addTodolistAC(newList))
+        },
+        setToDoList: (todolists) => {
+            dispatch(setToDoList(todolists))
         }
     }
 }

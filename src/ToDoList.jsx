@@ -7,6 +7,7 @@ import TodoListFooter from "./components/TodoListFooter";
 import TodoListTitle from "./components/TodoListTitle";
 import AddNewItemForm from "./components/AddNewItemForm";
 import {addTaskAC, deleteTaskAC, deleteToDoListAC, сhangeTaskAC} from "./store/actions";
+import axios from "axios";
 
 class ToDoList extends React.Component {
 
@@ -74,7 +75,17 @@ class ToDoList extends React.Component {
     }
 
     deleteToDoList = () => {
-        this.props.deleteToDoList(this.props.id)
+        axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}`,
+            {
+                withCredentials: true,
+                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
+            })
+            .then(result => {
+                debugger
+                if (result.data.resultCode === 0) {
+                    this.props.deleteToDoList(this.props.id)
+                }
+            })
     }
 
     deleteTask = (taskId) => {
@@ -82,6 +93,7 @@ class ToDoList extends React.Component {
     }
 
     render = () => {
+        let {tasks = []} = this.props
         return (
             <div className="todoList">
                 <TodoListTitle title={this.props.title} deleteToDoList={this.deleteToDoList}/>
@@ -90,7 +102,7 @@ class ToDoList extends React.Component {
                     changeTitle={this.changeTitle}
                     changeStatus={this.changeStatus}
                     deleteTask={this.deleteTask}
-                    tasks={this.props.tasks.filter(t => {
+                    tasks={tasks.filter(t => {
                         if (this.state.filterValue === 'All') {
                             return true
                         }

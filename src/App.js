@@ -16,44 +16,32 @@ class App extends React.Component {
     }
 
     restoreState = () => {
+        debugger
         axios.get("https://social-network.samuraijs.com/api/1.1/todo-lists", {withCredentials: true})
             .then(res => {
                 this.props.setToDoList(res.data);
             });
     }
 
-    saveState = () => {
-        localStorage.setItem('ToDolist', JSON.stringify(this.state))
-    }
-
-    restoreState = () => {
-        let state = this.state
-        let stateAsString = localStorage.getItem('ToDolist')
-        if (stateAsString) {
-            state = JSON.parse(stateAsString)
-        }
-        this.setState(state, () => {
-            this.state.toDoLists.forEach(list => {
-                if (list.id >= this.nextTaskId) {
-                    this.nextToDoListId = list.id + 1
-                }
-            })
-        })
-    }
-
-
     nextToDoListId = 0
 
-    addToDoList = (toDoListName) => {
-        let newList = {
-            id: this.nextToDoListId,
-            title: toDoListName,
-            tasks: []
-        }
-        this.nextToDoListId++
-        debugger
-        this.props.addToDoList(newList)
+
+    addToDoList = (title) => {
+        axios.post('https://social-network.samuraijs.com/api/1.1/todo-lists',
+            {title: title},
+            {
+                withCredentials: true,
+                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
+            }
+        )
+            .then(result => {
+                debugger
+                if (result.data.resultCode === 0) {
+                    this.props.addToDoList(result.data.data.item)
+                }
+            })
     }
+
 
     render = () => {
         debugger

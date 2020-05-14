@@ -1,10 +1,17 @@
-import {ADD_TASK, ADD_TO_DO_LIST, CHANGE_TASK, DELETE_TASK, DELETE_TODOLIST, SET_TO_DO_LIST} from "./reducer";
+import {
+    ADD_TASK,
+    ADD_TO_DO_LIST,
+    CHANGE_TASK,
+    DELETE_TASK,
+    DELETE_TODOLIST,
+    SET_TASKS,
+    SET_TO_DO_LIST
+} from "./reducer";
 
-export const addTaskAC = (toDoListId, newTask) => {
+export const addTaskAC = (newTask) => {
     return {
         type: ADD_TASK,
-        newTask: newTask,
-        toDoListId: toDoListId
+        newTask: newTask
     }
 }
 
@@ -39,9 +46,20 @@ export const deleteTaskAC = (toDoListId, taskId) => {
     }
 }
 
-export const setToDoList = (todolists) => {
+export const setToDoList = (toDoLists) => {
     return {
         type: SET_TO_DO_LIST,
-        todolists
+        toDoLists
     }
 }
+
+export const setTasks =(tasks, todolistId)=>{
+    return{
+        type: SET_TASKS,
+        tasks,
+        todolistId
+    }
+}
+
+
+

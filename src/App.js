@@ -71,8 +71,8 @@ const mapDispatchToProps = (dispatch) => {
         addToDoList: (newList) => {
             dispatch(addTodolistAC(newList))
         },
-        setToDoList: (todolists) => {
-            dispatch(setToDoList(todolists))
+        setToDoList: (toDoLists) => {
+            dispatch(setToDoList(toDoLists))
         }
     }
 }

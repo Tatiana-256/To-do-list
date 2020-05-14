@@ -16,6 +16,7 @@ class TodoListTask extends React.Component {
 
 
     onIsDoneChanges = (e) => {
+
         this.props.changeStatus(this.props.task.id, e.currentTarget.checked)
     }
 
@@ -34,7 +35,7 @@ class TodoListTask extends React.Component {
                 <div className="todoList-task">
                     <input
                         onChange={this.onIsDoneChanges}
-                        type="checkbox" checked={this.props.task.isDone}/>
+                        type="checkbox" checked={this.props.task.status === 2}/>
 
                     {this.state.editMode ?
                         <input onBlur={this.deActivateEditMode}

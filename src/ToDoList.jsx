@@ -19,15 +19,20 @@ class ToDoList extends React.Component {
         this.restoreState()
     }
 
+
+    //____________________getting tasks of list from API_______________________
+
     restoreState = () => {
+        debugger
         axios.get(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks`,
             {
                 withCredentials: true,
                 headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
             })
             .then(response => {
+                debugger
                 if (!response.data.error) {
-                    this.props.set(response.data.item, this.props.id)
+                    this.props.setTasks(response.data.items, this.props.id)
                 }
             })
     }
@@ -37,29 +42,12 @@ class ToDoList extends React.Component {
         filterValue: "All",
     }
 
-    nextTaskId = 0
-
     saveState = () => {
         localStorage.setItem('our-state' + this.props.id, JSON.stringify(this.state))
     }
 
-    restoreState = () => {
-        let state = {
-            task: [],
-            filterValue: "All"
-        }
-        let stateAsString = localStorage.getItem('our-state' + this.props.id)
-        if (stateAsString) {
-            state = JSON.parse(stateAsString)
-        }
-        this.setState(state, () => {
-            this.state.tasks.forEach(task => {
-                if (task.id >= this.nextTaskId) {
-                    this.nextTaskId = task.id + 1
-                }
-            })
-        })
-    }
+
+    //   __________________add task for list __________________
 
     addItem = (title) => {
 
@@ -121,7 +109,21 @@ class ToDoList extends React.Component {
     }
 
     deleteTask = (taskId) => {
-        this.props.deleteTask(this.props.id, taskId)
+        debugger
+        axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks/${taskId}`,
+            {
+                withCredentials: true,
+                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
+            })
+            .then(result => {
+                debugger
+                if (result.data.resultCode === 0) {
+                    this.props.deleteTask(this.props.id, taskId)
+                }
+            })
+
+
+        // this.props.deleteTask(this.props.id, taskId)
     }
 
     render = () => {

@@ -24,7 +24,8 @@ class TodoListTask extends React.Component {
         this.props.changeTitle(this.props.task.id, e.currentTarget.value)
     }
 
-    deleteTask =()=>{
+    deleteTask = () => {
+        debugger
         this.props.deleteTask(this.props.task.id)
     }
 

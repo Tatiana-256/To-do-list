@@ -6,23 +6,27 @@ class TodoListTask extends React.Component {
         editMode: false
     }
 
+
+    //_________________Add area for ability to change task
+
     activateEditMode = () => {
         this.setState({editMode: true})
     }
 
-    deActivateEditMode = () => {
+    deActivateEditMode = (e) => {
+        this.props.changeTitle(this.props.task, e.currentTarget.value)
         this.setState({editMode: false})
     }
 
+    //___________ changing IS_DONE of task and modifying task________
 
     onIsDoneChanges = (e) => {
 
-        this.props.changeStatus(this.props.task.id, e.currentTarget.checked)
+        this.props.changeStatus(this.props.task, e.currentTarget.checked)
     }
 
-    onTitleChanged = (e) => {
-        this.props.changeTitle(this.props.task.id, e.currentTarget.value)
-    }
+
+    //___________Delete task_________
 
     deleteTask = () => {
         debugger
@@ -30,21 +34,20 @@ class TodoListTask extends React.Component {
     }
 
     render() {
-
+        debugger
         return <div className="">
             <div className="todoList-tasks">
                 <div className="todoList-task">
                     <input
                         onChange={this.onIsDoneChanges}
-                        type="checkbox" checked={this.props.task.status === 2}/>
+                        type="checkbox" checked={this.props.task.status}/>
 
                     {this.state.editMode ?
                         <input onBlur={this.deActivateEditMode}
-                               onChange={this.onTitleChanged}
                                autoFocus={true}
-                               value={this.props.task.title}/> :
+                               defaultValue={this.props.task.title}/> :
                         <span onClick={this.activateEditMode}>
-                            {this.props.task.id} - {this.props.task.title}
+                            {this.props.task.title}
                         </span>}
                     <button className='delete' onClick={this.deleteTask}>x</button>
                 </div>

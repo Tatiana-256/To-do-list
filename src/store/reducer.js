@@ -19,13 +19,11 @@ const reducer = (state = initialState, action) => {
                 toDoLists: [...state.toDoLists, action.newList]
             }
         case SET_TO_DO_LIST:
-            debugger
             return {
                 ...state,
                 toDoLists: action.toDoLists.map(tl => ({...tl, tasks: []}))
             }
         case SET_TASKS:
-            debugger
             return {
                 ...state,
                 toDoLists: state.toDoLists.map(todo => {
@@ -38,7 +36,6 @@ const reducer = (state = initialState, action) => {
             }
         case ADD_TASK:
             let newTasks = state.toDoLists.map(task => {
-                debugger
                 if (task.id !== action.newTask.todoListId) {
                     return task
                 } else {

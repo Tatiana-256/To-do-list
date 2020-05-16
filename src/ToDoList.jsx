@@ -156,7 +156,7 @@ class ToDoList extends React.Component {
                             return true
                         }
                         if (this.state.filterValue === 'Completed') {
-                            return t.status === 2
+                            return t.status === 1
                         }
                         if (this.state.filterValue === 'Active') {
                             return t.status === 0

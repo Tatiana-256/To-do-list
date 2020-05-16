@@ -29,7 +29,7 @@ export type taskType = {
 
 
 const initialState = {
-    toDoLists:  [] as Array<listTypes>
+    toDoLists: [] as Array<listTypes>
 }
 
 type initialStateType = typeof initialState

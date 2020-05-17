@@ -48,7 +48,6 @@ class ToDoList extends React.Component {
     //   __________________add task for list __________________
 
     addItem = (title) => {
-
         axios.post(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks`,
             {title: title},
             {
@@ -110,6 +109,29 @@ class ToDoList extends React.Component {
     }
 
 
+    //________________change priority___________________________________
+
+    changePriority = (task, priority) => {
+        axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks/${task.id}`,
+            {
+                ...task,
+                priority
+            },
+            {
+                withCredentials: true,
+                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
+            }
+        )
+            .then(result => {
+                this.props.сhangeTask(this.props.id, task.id, {priority: priority})
+            })
+
+
+    }
+
+
+
+
     //___________Delete list of tasks_________
 
     deleteToDoList = () => {
@@ -151,6 +173,7 @@ class ToDoList extends React.Component {
                     changeTitle={this.changeTitle}
                     changeStatus={this.changeStatus}
                     deleteTask={this.deleteTask}
+                    changePriority={this.changePriority}
                     tasks={tasks.filter(t => {
                         if (this.state.filterValue === 'All') {
                             return true

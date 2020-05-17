@@ -8,16 +8,23 @@ import {
     SET_TO_DO_LIST, taskType
 } from "./reducer";
 
+export type ActionsType = addTaskACType
+|addTodolistACType
+|сhangeTaskACType
+|deleteToDoListACType
+|deleteTaskACType
+|setToDoListType
+|setTasksType
 
-type addTaskACType = { type: typeof ADD_TASK, newTask: string }
+type addTaskACType = { type: typeof ADD_TASK, newTask: taskType }
 type addTodolistACType = { type: typeof ADD_TO_DO_LIST, newList: listTypes }
 type сhangeTaskACType = { type: typeof CHANGE_TASK, obj: any, taskId: string, toDoListId: string }
 type deleteToDoListACType = { type: typeof DELETE_TODOLIST, toDoListId: string }
 type deleteTaskACType = { type: typeof DELETE_TASK, toDoListId: string, taskId: string }
-type setToDoListType = { type: typeof SET_TO_DO_LIST, toDoLists: listTypes }
-type setTasksType = { type: typeof SET_TASKS, tasks: taskType, todolistId: string }
+type setToDoListType = { type: typeof SET_TO_DO_LIST, toDoLists: Array<listTypes> }
+type setTasksType = { type: typeof SET_TASKS, tasks: Array<taskType>, todolistId: string }
 
-export const addTaskAC = (newTask: string): addTaskACType => {
+export const addTaskAC = (newTask: taskType): addTaskACType => {
     return {
         type: ADD_TASK,
         newTask: newTask
@@ -55,14 +62,14 @@ export const deleteTaskAC = (toDoListId: string, taskId: string): deleteTaskACTy
     }
 }
 
-export const setToDoList = (toDoLists: listTypes): setToDoListType => {
+export const setToDoList = (toDoLists: Array<listTypes>): setToDoListType => {
     return {
         type: SET_TO_DO_LIST,
         toDoLists
     }
 }
 
-export const setTasks = (tasks: taskType, todolistId: string): setTasksType => {
+export const setTasks = (tasks: Array<taskType>, todolistId: string): setTasksType => {
     return {
         type: SET_TASKS,
         tasks,

@@ -1,3 +1,5 @@
+import {ActionsType} from "./actions";
+
 export const ADD_TO_DO_LIST = 'todolist/reducer/ADD_TO_DO_LIST'
 export const ADD_TASK = 'todolist/reducer/ADD_TASK'
 export const CHANGE_TASK = "todolist/reducer/CHANGE_TASK"
@@ -10,7 +12,9 @@ export const SET_TASKS = 'todolist/reducer/SET_TASKS'
 
 
 export type listTypes = {
-    tasks: taskType
+    id: string
+    title: string
+    tasks: Array<taskType>
 }
 
 export type taskType = {
@@ -34,7 +38,7 @@ const initialState = {
 
 type initialStateType = typeof initialState
 
-const reducer = (state = initialState, action: any): initialStateType => {
+const reducer = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case ADD_TO_DO_LIST:
             return {
@@ -44,12 +48,12 @@ const reducer = (state = initialState, action: any): initialStateType => {
         case SET_TO_DO_LIST:
             return {
                 ...state,
-                toDoLists: action.toDoLists.map((tl:any ) => ({...tl, tasks: []}))
+                toDoLists: action.toDoLists.map(tl  => ({...tl, tasks: []}))
             }
         case SET_TASKS:
             return {
                 ...state,
-                toDoLists: state.toDoLists.map((todo: any) => {
+                toDoLists: state.toDoLists.map(todo  => {
                     if (todo.id !== action.todolistId) {
                         return todo
                     } else {

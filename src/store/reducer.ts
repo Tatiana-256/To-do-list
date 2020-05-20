@@ -7,8 +7,7 @@ export const DELETE_TODOLIST = "todolist/reducer/DELETE_TODOLIST"
 export const DELETE_TASK = "todolist/reducer/DELETE_TASK"
 export const SET_TO_DO_LIST = 'todolist/reducer/SET_TO_DO_LIST'
 export const SET_TASKS = 'todolist/reducer/SET_TASKS'
-
-
+export const CHANGE_LIST_TITLE = 'CHANGE_LIST_TITLE'
 
 
 export type listTypes = {
@@ -32,11 +31,11 @@ export type taskType = {
 }
 
 
+type initialStateType = typeof initialState
+
 const initialState = {
     toDoLists: [] as Array<listTypes>
 }
-
-type initialStateType = typeof initialState
 
 const reducer = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
@@ -48,12 +47,12 @@ const reducer = (state = initialState, action: ActionsType): initialStateType =>
         case SET_TO_DO_LIST:
             return {
                 ...state,
-                toDoLists: action.toDoLists.map(tl  => ({...tl, tasks: []}))
+                toDoLists: action.toDoLists.map(tl => ({...tl, tasks: []}))
             }
         case SET_TASKS:
             return {
                 ...state,
-                toDoLists: state.toDoLists.map(todo  => {
+                toDoLists: state.toDoLists.map(todo => {
                     if (todo.id !== action.todolistId) {
                         return todo
                     } else {
@@ -85,6 +84,17 @@ const reducer = (state = initialState, action: ActionsType): initialStateType =>
                                     }
                                 })]
                             }
+                        }
+                    }
+                )
+            }
+        case CHANGE_LIST_TITLE:
+            return {
+                ...state, toDoLists: state.toDoLists.map((title: any) => {
+                        if (title.id !== action.toDoListId) {
+                            return title
+                        } else {
+                            return {...title, ...action.obj}
                         }
                     }
                 )

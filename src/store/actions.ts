@@ -1,6 +1,6 @@
 import {
     ADD_TASK,
-    ADD_TO_DO_LIST,
+    ADD_TO_DO_LIST, CHANGE_LIST_TITLE,
     CHANGE_TASK,
     DELETE_TASK,
     DELETE_TODOLIST, listTypes,
@@ -9,16 +9,18 @@ import {
 } from "./reducer";
 
 export type ActionsType = addTaskACType
-|addTodolistACType
-|сhangeTaskACType
-|deleteToDoListACType
-|deleteTaskACType
-|setToDoListType
-|setTasksType
+    | addTodolistACType
+    | сhangeTaskACType
+    | deleteToDoListACType
+    | deleteTaskACType
+    | setToDoListType
+    | setTasksType
+    | сhangeListTitleType
 
 type addTaskACType = { type: typeof ADD_TASK, newTask: taskType }
 type addTodolistACType = { type: typeof ADD_TO_DO_LIST, newList: listTypes }
 type сhangeTaskACType = { type: typeof CHANGE_TASK, obj: any, taskId: string, toDoListId: string }
+type сhangeListTitleType = { type: typeof CHANGE_LIST_TITLE, obj: any, toDoListId: string }
 type deleteToDoListACType = { type: typeof DELETE_TODOLIST, toDoListId: string }
 type deleteTaskACType = { type: typeof DELETE_TASK, toDoListId: string, taskId: string }
 type setToDoListType = { type: typeof SET_TO_DO_LIST, toDoLists: Array<listTypes> }
@@ -43,6 +45,13 @@ export const сhangeTaskAC = (toDoListId: string, taskId: string, obj: any): сh
         type: CHANGE_TASK,
         obj: obj,
         taskId: taskId,
+        toDoListId: toDoListId
+    }
+}
+export const сhangeListTitle = (toDoListId: string, obj: any): сhangeListTitleType => {
+    return {
+        type: CHANGE_LIST_TITLE,
+        obj: obj,
         toDoListId: toDoListId
     }
 }

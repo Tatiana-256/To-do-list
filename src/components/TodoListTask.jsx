@@ -4,7 +4,8 @@ import './task.css'
 class TodoListTask extends React.Component {
 
     state = {
-        editMode: false
+        editMode: false,
+        title: ''
     }
 
 
@@ -16,7 +17,7 @@ class TodoListTask extends React.Component {
 
     deActivateEditMode = (e) => {
         this.props.changeTitle(this.props.task, e.currentTarget.value)
-        this.setState({editMode: false})
+        this.setState({title: e.currentTarget.value, editMode: false})
     }
 
     //___________ changing IS_DONE of task and modifying task________
@@ -37,7 +38,6 @@ class TodoListTask extends React.Component {
     //___________Delete task_________
 
     deleteTask = () => {
-        debugger
         this.props.deleteTask(this.props.task.id)
     }
 
@@ -56,7 +56,6 @@ class TodoListTask extends React.Component {
     }
 
     render() {
-        debugger
         return <div className="">
             <div className="todoList-tasks">
                 <div className="todoList-task">

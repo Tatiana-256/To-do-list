@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
 import {connect} from "react-redux";
+import {api} from "./store/api";
+
 
 import TodoListTasks from "./components/TodoListTasks";
 import TodoListFooter from "./components/TodoListFooter";
 import TodoListTitle from "./components/TodoListTitle";
 import AddNewItemForm from "./components/AddNewItemForm";
-import {addTaskAC, deleteTaskAC, deleteToDoListAC, setTasks, сhangeTaskAC} from "./store/actions";
-import axios from "axios";
+import {addTaskAC, deleteTaskAC, deleteToDoListAC, setTasks, сhangeListTitle, сhangeTaskAC} from "./store/actions";
 
 class ToDoList extends React.Component {
 
@@ -23,11 +24,7 @@ class ToDoList extends React.Component {
     //____________________getting tasks of list from API_______________________
 
     restoreState = () => {
-        axios.get(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks`,
-            {
-                withCredentials: true,
-                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
-            })
+        api.getTask(this.props.id)
             .then(response => {
                 if (!response.data.error) {
                     this.props.setTasks(response.data.items, this.props.id)
@@ -48,13 +45,7 @@ class ToDoList extends React.Component {
     //   __________________add task for list __________________
 
     addItem = (title) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks`,
-            {title: title},
-            {
-                withCredentials: true,
-                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
-            }
-        )
+        api.createTask(title, this.props.id)
             .then(result => {
                 if (result.data.resultCode === 0) {
                     this.props.addTask(result.data.data.item)
@@ -72,74 +63,57 @@ class ToDoList extends React.Component {
     //___________ changing IS_DONE of task and modifying task________
 
     changeStatus = (task, status) => {
-        debugger
-        axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks/${task.id}`,
-            {
-                ...task,
-                status
-            },
-            {
-                withCredentials: true,
-                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
-            }
-        )
-            .then(result => {
 
-                this.props.сhangeTask(this.props.id, task.id, {status: status})
+
+        api.updateTask(this.props.id, task.id, task, {status: status})
+            .then(result => {
+                if (result.data.resultCode === 0) {
+                    this.props.сhangeTask(this.props.id, task.id, {status: status})
+                }
             })
     }
 
 
-    changeTitle = (task, title) => {
-        axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks/${task.id}`,
-            {
-                ...task,
-                title
-            },
-            {
-                withCredentials: true,
-                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
-            }
-        )
+    changeTitleOfList = (title) => {
+        api.updateToDoList(this.props.id, {title: title})
             .then(result => {
-                this.props.сhangeTask(this.props.id, task.id, {title: title})
+                if (result.data.resultCode === 0) {
+                    this.props.сhangeListTitle(this.props.id, {title: title})
+                }
             })
 
+    }
 
+
+    changeTitle = (task, title) => {
+        api.updateTask(this.props.id, task.id, task, {title: title})
+            .then(result => {
+                if (result.data.resultCode === 0) {
+                    this.props.сhangeTask(this.props.id, task.id, {title: title})
+                }
+            })
     }
 
 
     //________________change priority___________________________________
 
     changePriority = (task, priority) => {
-        axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks/${task.id}`,
-            {
-                ...task,
-                priority
-            },
-            {
-                withCredentials: true,
-                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
-            }
-        )
+
+        api.updateTask(this.props.id, task.id, task, {priority: priority})
             .then(result => {
-                this.props.сhangeTask(this.props.id, task.id, {priority: priority})
+                if (result.data.resultCode === 0) {
+                    this.props.сhangeTask(this.props.id, task.id, {priority: priority})
+                }
             })
 
 
     }
 
 
-
-
     //___________Delete list of tasks_________
 
     deleteToDoList = () => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}`,
-            {
-                withCredentials: true,
-                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
-            })
+        api.deleteToDoList(this.props.id)
             .then(result => {
                 if (result.data.resultCode === 0) {
                     this.props.deleteToDoList(this.props.id)
@@ -150,11 +124,7 @@ class ToDoList extends React.Component {
     //___________Delete task_________
 
     deleteTask = (taskId) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks/${taskId}`,
-            {
-                withCredentials: true,
-                headers: {'API-KEY': '55ac5274-f21f-43a3-b42e-5cfba380d176'}
-            })
+        api.deleteTask(this.props.id, taskId)
             .then(result => {
                 if (result.data.resultCode === 0) {
                     this.props.deleteTask(this.props.id, taskId)
@@ -164,10 +134,10 @@ class ToDoList extends React.Component {
 
     render = () => {
         let {tasks = []} = this.props;
-        debugger
         return (
             <div className="todoList">
-                <TodoListTitle title={this.props.title} deleteToDoList={this.deleteToDoList}/>
+                <TodoListTitle title={this.props.title} deleteToDoList={this.deleteToDoList}
+                               changeTitle={this.changeTitleOfList}/>
                 <AddNewItemForm addItem={this.addItem}/>
                 <TodoListTasks
                     changeTitle={this.changeTitle}
@@ -200,6 +170,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         сhangeTask: (toDoListId, taskId, obj) => {
             dispatch(сhangeTaskAC(toDoListId, taskId, obj))
+        },
+        сhangeListTitle: (toDoListId, obj) => {
+            dispatch(сhangeListTitle(toDoListId, obj))
         },
         deleteToDoList: (toDoListId) => {
             dispatch(deleteToDoListAC(toDoListId))

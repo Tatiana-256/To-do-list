@@ -1,13 +1,46 @@
 import React from "react";
 
 
-const TodoListTitle = (props) => {
-    return <div className='inpt'>
-        <div><h3>{props.title}</h3></div>
-        <div>
-            <button className='delete' onClick={props.deleteToDoList}>x</button>
+class TodoListTitle extends React.Component {
+    state = {
+        editMode: false,
+        title: this.props.title
+    }
+
+
+    //_________________Add area for ability to change task
+
+    activateEditMode = () => {
+        this.setState({editMode: true})
+    }
+
+    deActivateEditMode = (e) => {
+        this.props.changeTitle(e.currentTarget.value)
+        this.setState({editMode: false})
+    }
+
+    onTitleChange = (e) => {
+        this.setState({title: e.currentTarget.value})
+    }
+
+
+    render() {
+        return <div className='inpt'>
+
+            {this.state.editMode ?
+                <input onBlur={this.deActivateEditMode}
+                       autoFocus={true}
+                       defaultValue={this.props.title}
+                       onChange={this.onTitleChange}
+                /> :
+                <span onClick={this.activateEditMode}>
+                            {this.state.title}
+                        </span>}
+            <div>
+                <button className='delete' onClick={this.props.deleteToDoList}>x</button>
+            </div>
         </div>
-    </div>
+    }
 }
 
 export default TodoListTitle

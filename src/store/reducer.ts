@@ -42,7 +42,7 @@ const reducer = (state = initialState, action: ActionsType): initialStateType =>
         case ADD_TO_DO_LIST:
             return {
                 ...state,
-                toDoLists: [...state.toDoLists, action.newList]
+                toDoLists: [action.newList, ...state.toDoLists]
             }
         case SET_TO_DO_LIST:
             return {

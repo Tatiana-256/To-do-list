@@ -115,6 +115,7 @@ class ToDoList extends React.Component {
     deleteToDoList = () => {
         api.deleteToDoList(this.props.id)
             .then(result => {
+                debugger
                 if (result.data.resultCode === 0) {
                     this.props.deleteToDoList(this.props.id)
                 }

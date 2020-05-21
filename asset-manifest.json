@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Tatiana-256/To-do-list/static/css/main.8071046c.chunk.css",
-    "main.js": "/Tatiana-256/To-do-list/static/js/main.b4f65d7a.chunk.js",
-    "main.js.map": "/Tatiana-256/To-do-list/static/js/main.b4f65d7a.chunk.js.map",
-    "runtime-main.js": "/Tatiana-256/To-do-list/static/js/runtime-main.1e07abd3.js",
-    "runtime-main.js.map": "/Tatiana-256/To-do-list/static/js/runtime-main.1e07abd3.js.map",
-    "static/js/2.a6b7e8aa.chunk.js": "/Tatiana-256/To-do-list/static/js/2.a6b7e8aa.chunk.js",
-    "static/js/2.a6b7e8aa.chunk.js.map": "/Tatiana-256/To-do-list/static/js/2.a6b7e8aa.chunk.js.map",
+    "main.css": "/Tatiana-256/To-do-list/static/css/main.419b0c8b.chunk.css",
+    "main.js": "/Tatiana-256/To-do-list/static/js/main.0071ca78.chunk.js",
+    "main.js.map": "/Tatiana-256/To-do-list/static/js/main.0071ca78.chunk.js.map",
+    "runtime-main.js": "/Tatiana-256/To-do-list/static/js/runtime-main.bbcb250c.js",
+    "runtime-main.js.map": "/Tatiana-256/To-do-list/static/js/runtime-main.bbcb250c.js.map",
+    "static/js/2.f761e99f.chunk.js": "/Tatiana-256/To-do-list/static/js/2.f761e99f.chunk.js",
+    "static/js/2.f761e99f.chunk.js.map": "/Tatiana-256/To-do-list/static/js/2.f761e99f.chunk.js.map",
     "index.html": "/Tatiana-256/To-do-list/index.html",
-    "precache-manifest.7189c6865afd813d93d8c99cdc6d8b02.js": "/Tatiana-256/To-do-list/precache-manifest.7189c6865afd813d93d8c99cdc6d8b02.js",
+    "precache-manifest.84110a381faab4801671f54a206fd961.js": "/Tatiana-256/To-do-list/precache-manifest.84110a381faab4801671f54a206fd961.js",
     "service-worker.js": "/Tatiana-256/To-do-list/service-worker.js",
-    "static/css/main.8071046c.chunk.css.map": "/Tatiana-256/To-do-list/static/css/main.8071046c.chunk.css.map",
-    "static/js/2.a6b7e8aa.chunk.js.LICENSE.txt": "/Tatiana-256/To-do-list/static/js/2.a6b7e8aa.chunk.js.LICENSE.txt",
+    "static/css/main.419b0c8b.chunk.css.map": "/Tatiana-256/To-do-list/static/css/main.419b0c8b.chunk.css.map",
+    "static/js/2.f761e99f.chunk.js.LICENSE.txt": "/Tatiana-256/To-do-list/static/js/2.f761e99f.chunk.js.LICENSE.txt",
     "static/media/App.css": "/Tatiana-256/To-do-list/static/media/fone.eb4a5701.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.1e07abd3.js",
-    "static/js/2.a6b7e8aa.chunk.js",
-    "static/css/main.8071046c.chunk.css",
-    "static/js/main.b4f65d7a.chunk.js"
+    "static/js/runtime-main.bbcb250c.js",
+    "static/js/2.f761e99f.chunk.js",
+    "static/css/main.419b0c8b.chunk.css",
+    "static/js/main.0071ca78.chunk.js"
   ]
 }

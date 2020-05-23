@@ -8,7 +8,7 @@ import TodoListTasks from "./components/TodoListTasks";
 import TodoListFooter from "./components/TodoListFooter";
 import TodoListTitle from "./components/TodoListTitle";
 import AddNewItemForm from "./components/AddNewItemForm";
-import {addTaskAC, deleteTaskAC, deleteToDoListAC, setTasks, сhangeListTitle, сhangeTaskAC} from "./store/actions";
+import {actions} from "./store/actions";
 
 class ToDoList extends React.Component {
 
@@ -167,22 +167,22 @@ class ToDoList extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTask: (newTask) => {
-            dispatch(addTaskAC(newTask))
+            dispatch(actions.addTaskAC(newTask))
         },
         сhangeTask: (toDoListId, taskId, obj) => {
-            dispatch(сhangeTaskAC(toDoListId, taskId, obj))
+            dispatch(actions.сhangeTaskAC(toDoListId, taskId, obj))
         },
         сhangeListTitle: (toDoListId, obj) => {
-            dispatch(сhangeListTitle(toDoListId, obj))
+            dispatch(actions.сhangeListTitle(toDoListId, obj))
         },
         deleteToDoList: (toDoListId) => {
-            dispatch(deleteToDoListAC(toDoListId))
+            dispatch(actions.deleteToDoListAC(toDoListId))
         },
         deleteTask: (toDoListId, taskId) => {
-            dispatch(deleteTaskAC(toDoListId, taskId))
+            dispatch(actions.deleteTaskAC(toDoListId, taskId))
         },
         setTasks: (tasks, todolistId) => {
-            dispatch(setTasks(tasks, todolistId))
+            dispatch(actions.setTasks(tasks, todolistId))
         }
     }
 }

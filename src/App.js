@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import ToDoList from "./ToDoList";
 import AddNewItemForm from "./components/AddNewItemForm";
 import {actions} from "./store/actions";
-import {api} from "./store/api";
+import {api, ResultCodeEnum} from "./store/api";
 
 class App extends React.Component {
     state = {
@@ -28,7 +28,7 @@ class App extends React.Component {
     addToDoList = (title) => {
         api.createToDoList(title)
             .then(result => {
-                if (result.data.resultCode === 0) {
+                if (result.data.resultCode === ResultCodeEnum.Success) {
                     this.props.addToDoList(result.data.data.item)
                 }
             })

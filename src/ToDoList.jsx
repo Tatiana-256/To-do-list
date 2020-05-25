@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {connect} from "react-redux";
-import {api} from "./store/api";
+import {api, ResultCodeEnum} from "./store/api";
 
 
 import TodoListTasks from "./components/TodoListTasks";
@@ -47,7 +47,7 @@ class ToDoList extends React.Component {
     addItem = (title) => {
         api.createTask(title, this.props.id)
             .then(result => {
-                if (result.data.resultCode === 0) {
+                if (result.data.resultCode === ResultCodeEnum.Success) {
                     this.props.addTask(result.data.data.item)
                 }
             })
@@ -67,7 +67,7 @@ class ToDoList extends React.Component {
 
         api.updateTask(this.props.id, task.id, task, {status: status})
             .then(result => {
-                if (result.data.resultCode === 0) {
+                if (result.data.resultCode === ResultCodeEnum.Success) {
                     this.props.сhangeTask(this.props.id, task.id, {status: status})
                 }
             })
@@ -77,7 +77,7 @@ class ToDoList extends React.Component {
     changeTitleOfList = (title) => {
         api.updateToDoList(this.props.id, {title: title})
             .then(result => {
-                if (result.data.resultCode === 0) {
+                if (result.data.resultCode === ResultCodeEnum.Success) {
                     this.props.сhangeListTitle(this.props.id, {title: title})
                 }
             })
@@ -88,7 +88,7 @@ class ToDoList extends React.Component {
     changeTitle = (task, title) => {
         api.updateTask(this.props.id, task.id, task, {title: title})
             .then(result => {
-                if (result.data.resultCode === 0) {
+                if (result.data.resultCode === ResultCodeEnum.Success) {
                     this.props.сhangeTask(this.props.id, task.id, {title: title})
                 }
             })
@@ -101,7 +101,7 @@ class ToDoList extends React.Component {
 
         api.updateTask(this.props.id, task.id, task, {priority: priority})
             .then(result => {
-                if (result.data.resultCode === 0) {
+                if (result.data.resultCode === ResultCodeEnum.Success) {
                     this.props.сhangeTask(this.props.id, task.id, {priority: priority})
                 }
             })
@@ -116,7 +116,7 @@ class ToDoList extends React.Component {
         api.deleteToDoList(this.props.id)
             .then(result => {
                 debugger
-                if (result.data.resultCode === 0) {
+                if (result.data.resultCode === ResultCodeEnum.Success) {
                     this.props.deleteToDoList(this.props.id)
                 }
             })
@@ -127,7 +127,7 @@ class ToDoList extends React.Component {
     deleteTask = (taskId) => {
         api.deleteTask(this.props.id, taskId)
             .then(result => {
-                if (result.data.resultCode === 0) {
+                if (result.data.resultCode === ResultCodeEnum.Success) {
                     this.props.deleteTask(this.props.id, taskId)
                 }
             })

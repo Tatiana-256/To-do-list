@@ -11,16 +11,6 @@ import {InferActionsTypes} from "./store";
 
 export type ActionsType = InferActionsTypes<typeof actions>
 
-// type addTaskACType = { type: typeof ADD_TASK, newTask: taskType }
-// type addTodolistACType = { type: typeof ADD_TO_DO_LIST, newList: listTypes }
-// type сhangeTaskACType = { type: typeof CHANGE_TASK, obj: any, taskId: string, toDoListId: string }
-// type сhangeListTitleType = { type: typeof CHANGE_LIST_TITLE, obj: any, toDoListId: string }
-// type deleteToDoListACType = { type: typeof DELETE_TODOLIST, toDoListId: string }
-// type deleteTaskACType = { type: typeof DELETE_TASK, toDoListId: string, taskId: string }
-// type setToDoListType = { type: typeof SET_TO_DO_LIST, toDoLists: Array<listTypes> }
-// type setTasksType = { type: typeof SET_TASKS, tasks: Array<taskType>, todolistId: string }
-
-
 export const actions = {
     addTaskAC: (newTask: taskType) => ({type: ADD_TASK, newTask: newTask} as const),
     addTodolistAC: (newList: listTypes) => ({type: ADD_TO_DO_LIST, newList: newList} as const),

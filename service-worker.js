@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Tatiana-256/To-do-list/precache-manifest.21d43597e75171535772e78650e81dee.js"
+  "/Tatiana-256/To-do-list/precache-manifest.26d8fda5e7902da22aa0603ef7678180.js"
 );
 
 self.addEventListener('message', (event) => {

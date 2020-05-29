@@ -70,3 +70,37 @@ type getTaskAPI = {
     error: string
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let a = (s1, s2) => {
+//     let arr1 = s1.split("\n")
+//     let arr2 = s2.split("\n")
+//
+//     let res = []
+//     for (let i = 0; i < arr1.length; i++) {
+//         let str = arr1[i].charAt(0) + '' + arr2[arr1.length - 1 - i]
+//         res.push(str)
+//     }
+//     return res.join('\n')
+// }

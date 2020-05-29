@@ -9,6 +9,14 @@ import TodoListFooter from "./components/TodoListFooter";
 import TodoListTitle from "./components/TodoListTitle";
 import AddNewItemForm from "./components/AddNewItemForm";
 import {actions} from "./store/actions";
+import {
+    addTaskThunkC,
+    changeListTitleThunkC, changePriorityThunkC, changeStatusThunkC,
+    deleteTaskThunkC,
+    deleteToDoListThunkC,
+    getTasksThunkC,
+    сhangeTaskThunkC
+} from "./store/reducer";
 
 class ToDoList extends React.Component {
 
@@ -24,12 +32,7 @@ class ToDoList extends React.Component {
     //____________________getting tasks of list from API_______________________
 
     restoreState = () => {
-        api.getTask(this.props.id)
-            .then(response => {
-                if (!response.data.error) {
-                    this.props.setTasks(response.data.items, this.props.id)
-                }
-            })
+        this.props.setTasks(this.props.id)
     }
 
     state = {
@@ -45,13 +48,7 @@ class ToDoList extends React.Component {
     //   __________________add task for list __________________
 
     addItem = (title) => {
-        api.createTask(title, this.props.id)
-            .then(result => {
-                if (result.data.resultCode === ResultCodeEnum.Success) {
-                    this.props.addTask(result.data.data.item)
-                }
-            })
-    }
+        this.props.addTask(title, this.props.id)}
 
     changeFilter = (newFilterValue) => {
         this.setState({filterValue: newFilterValue}, () => {
@@ -63,74 +60,37 @@ class ToDoList extends React.Component {
     //___________ changing IS_DONE of task and modifying task________
 
     changeStatus = (task, status) => {
-
-
-        api.updateTask(this.props.id, task.id, task, {status: status})
-            .then(result => {
-                if (result.data.resultCode === ResultCodeEnum.Success) {
-                    this.props.сhangeTask(this.props.id, task.id, {status: status})
-                }
-            })
+        this.props.changeTaskStatus(this.props.id, task.id, task, status)
     }
 
 
     changeTitleOfList = (title) => {
-        api.updateToDoList(this.props.id, {title: title})
-            .then(result => {
-                if (result.data.resultCode === ResultCodeEnum.Success) {
-                    this.props.сhangeListTitle(this.props.id, {title: title})
-                }
-            })
-
+        this.props.сhangeListTitle(this.props.id, title)
     }
 
 
     changeTitle = (task, title) => {
-        api.updateTask(this.props.id, task.id, task, {title: title})
-            .then(result => {
-                if (result.data.resultCode === ResultCodeEnum.Success) {
-                    this.props.сhangeTask(this.props.id, task.id, {title: title})
-                }
-            })
+        this.props.сhangeTask(this.props.id, task.id, task, title)
     }
 
 
     //________________change priority___________________________________
 
     changePriority = (task, priority) => {
-
-        api.updateTask(this.props.id, task.id, task, {priority: priority})
-            .then(result => {
-                if (result.data.resultCode === ResultCodeEnum.Success) {
-                    this.props.сhangeTask(this.props.id, task.id, {priority: priority})
-                }
-            })
-
-
+        this.props.changePriority(this.props.id, task.id, task, priority)
     }
 
 
     //___________Delete list of tasks_________
 
     deleteToDoList = () => {
-        api.deleteToDoList(this.props.id)
-            .then(result => {
-                debugger
-                if (result.data.resultCode === ResultCodeEnum.Success) {
-                    this.props.deleteToDoList(this.props.id)
-                }
-            })
+        this.props.deleteToDoList(this.props.id)
     };
 
     //___________Delete task_________
 
     deleteTask = (taskId) => {
-        api.deleteTask(this.props.id, taskId)
-            .then(result => {
-                if (result.data.resultCode === ResultCodeEnum.Success) {
-                    this.props.deleteTask(this.props.id, taskId)
-                }
-            })
+        this.props.deleteTask(this.props.id, taskId)
     };
 
     render = () => {
@@ -166,23 +126,29 @@ class ToDoList extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addTask: (newTask) => {
-            dispatch(actions.addTaskAC(newTask))
-        },
-        сhangeTask: (toDoListId, taskId, obj) => {
-            dispatch(actions.сhangeTaskAC(toDoListId, taskId, obj))
-        },
-        сhangeListTitle: (toDoListId, obj) => {
-            dispatch(actions.сhangeListTitle(toDoListId, obj))
-        },
         deleteToDoList: (toDoListId) => {
-            dispatch(actions.deleteToDoListAC(toDoListId))
+            dispatch(deleteToDoListThunkC(toDoListId))
         },
         deleteTask: (toDoListId, taskId) => {
-            dispatch(actions.deleteTaskAC(toDoListId, taskId))
+            dispatch(deleteTaskThunkC(toDoListId, taskId))
         },
-        setTasks: (tasks, todolistId) => {
-            dispatch(actions.setTasks(tasks, todolistId))
+        setTasks: (todolistId) => {
+            dispatch(getTasksThunkC(todolistId))
+        },
+        addTask: (newTask, toDoListId) => {
+            dispatch(addTaskThunkC(newTask, toDoListId))
+        },
+        сhangeTask: (toDoListId, taskId, task, obj) => {
+            dispatch(сhangeTaskThunkC(toDoListId, taskId, task, obj))
+        },
+        changeTaskStatus: (toDoListId, taskId, task, obj) => {
+            dispatch(changeStatusThunkC(toDoListId, taskId, task, obj))
+        },
+        changePriority: (toDoListId, taskId, task, obj) => {
+            dispatch(changePriorityThunkC(toDoListId, taskId, task, obj))
+        },
+        сhangeListTitle: (toDoListId, obj) => {
+            dispatch(changeListTitleThunkC(toDoListId, obj))
         }
     }
 }

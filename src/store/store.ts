@@ -20,6 +20,7 @@ export default store;
 type RootReducerType = typeof reducers
 export type AppStateType = ReturnType<RootReducerType>
 
+// ______type of actions___________
 
 
 type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never

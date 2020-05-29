@@ -41,53 +41,52 @@ class TodoListTask extends React.Component {
         this.props.deleteTask(this.props.task.id)
     }
 
-
     //___________________
 
-
-    classSelect = () => {
-        if (this.props.task.priority === "1") {
-            return 'low'
-        } else if (this.props.task.priority === "2") {
-            return 'average'
-        } else if (this.props.task.priority === "3") {
-            return 'high'
-        }
-    }
-
     render() {
+        let classSelect = () => {
+            if (this.props.task.priority === "1") {
+                return 'low'
+            } else if (this.props.task.priority === "2") {
+                return 'average'
+            } else if (this.props.task.priority === "3") {
+                return 'high'
+            }
+        }
         return <div className="">
             <div className="todoList-tasks">
                 <div className="todoList-task">
                     <div className='hov'>
-                        <input
-                            onChange={this.onIsDoneChanges}
-                            type="checkbox" checked={this.props.task.status}/>
-
-                        {this.state.editMode ?
-                            <input onBlur={this.deActivateEditMode}
-                                   autoFocus={true}
-                                   defaultValue={this.props.task.title}/> :
-                            <span onClick={this.activateEditMode}>
+                        <div className="task">
+                            {this.state.editMode ?
+                                <input onBlur={this.deActivateEditMode}
+                                       autoFocus={true}
+                                       defaultValue={this.props.task.title}/> :
+                                <span onClick={this.activateEditMode}>
                             {this.props.task.title}
                         </span>}
+                            <button className='delete' onClick={this.deleteTask}>x</button>
+                        </div>
                         <div className="inner">
                             <div>Created: {this.props.task.addedDate}</div>
                         </div>
                     </div>
                     <div className='prior'>
                         <select
-                            className={this.classSelect}
+                            className={classSelect}
                             value={this.props.task.priority}
                             onChange={this.onChangePriority}
                         >
-                            <option>Select priority:</option>
                             <option value='1' className='low'>low</option>
                             <option value="2" className='average'>average</option>
                             <option value="3" className='high'>high
                             </option>
                         </select>
-                        <button className='delete' onClick={this.deleteTask}>x</button>
+                        <input
+                            className='checkbox'
+                            onChange={this.onIsDoneChanges}
+                            type="checkbox" checked={this.props.task.status}/>
+
                     </div>
                 </div>
             </div>

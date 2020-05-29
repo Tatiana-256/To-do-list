@@ -22,9 +22,6 @@ class App extends React.Component {
             });
     }
 
-    nextToDoListId = 0
-
-
     addToDoList = (title) => {
         api.createToDoList(title)
             .then(result => {
@@ -40,7 +37,7 @@ class App extends React.Component {
         return (
             <div className="App">
                 <div className="header">
-                    <h3>Add new list</h3>
+                    <h3>Add new list of tasks</h3>
                     <AddNewItemForm addItem={this.addToDoList}/>
                 </div>
                 <div className='toDo'>
@@ -53,7 +50,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        toDoLists: state.toDoLists
+        toDoLists: state.toDoListReducer.toDoLists
     }
 }
 

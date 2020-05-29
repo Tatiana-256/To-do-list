@@ -24,8 +24,9 @@ class TodoListFooter extends React.Component {
         let classForActive = this.props.filterValue === "Active" ? "filter-active" : "normal";
 
         return (
-            <div className="todoList-footer">
-                {this.state.isHidden && <div>
+
+            <div className="footer">
+                {this.state.isHidden && <div className="todoList-footer">
                     <button className={classForAll} onClick={this.onAllFilterClick}>All
                     </button>
                     <button className={classForCompleted} onClick={this.onCompletedFilterClick}>Completed

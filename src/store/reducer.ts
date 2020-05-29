@@ -1,4 +1,8 @@
-import {ActionsType} from "./actions";
+import {actions, ActionsType} from "./actions";
+import {baseThunkType} from "./store";
+import {Dispatch} from "redux";
+import {api, ResultCodeEnum} from "./api";
+import exp from "constants";
 
 export const ADD_TO_DO_LIST = 'todolist/reducer/ADD_TO_DO_LIST'
 export const ADD_TASK = 'todolist/reducer/ADD_TASK'
@@ -121,3 +125,10 @@ const reducer = (state = initialState, action: ActionsType): initialStateType =>
     return state;
 }
 export default reducer
+
+
+//_________________ thunk-creators____________________
+
+type thunkType = baseThunkType<ActionsType>
+type DispatchType = Dispatch<ActionsType>
+

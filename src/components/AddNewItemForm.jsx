@@ -2,7 +2,7 @@ import React from 'react';
 
 class AddNewItemForm extends React.Component {
     state = {
-        error: true,
+        error: false,
         itemName: ''
     }
 
@@ -35,11 +35,11 @@ class AddNewItemForm extends React.Component {
     render() {
         return <div>
             <div className="todoList-newTaskForm">
-                <input value={this.state.itemName} onChange={this.onItemChange}
+                <input
+                    value={this.state.itemName} onChange={this.onItemChange}
                        type="text"
                        onKeyPress={this.onKeyPress}
-                       placeholder="New task name"
-                       className={this.state.error ? 'error' : ''}
+                       className={this.state.error ? 'error' : 'black_border'}
                 />
                 <button onClick={this.onAddItemClick} className='btn'>Add</button>
             </div>

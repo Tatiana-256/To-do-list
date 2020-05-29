@@ -23,11 +23,13 @@
 }
 
 .todoList {
-
-    margin: 0 auto;
+    margin: 20px auto;
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.66);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
 
 }
@@ -36,20 +38,24 @@
     padding: 10px;
 }
 
-.filter-active {
-    background-color: #ffcbe4;
+.filter-active, .normal {
+    outline: none;
     border: 1px solid black;
+    border-radius: 20px;
     width: 80px;
     height: 30px;
 
 }
 
+.filter-active {
+    background-color: #ffcbe4;
+}
+
+
 .normal {
-    background-color: #f9ff9d;
-    width: 80px;
-    height: 30px;
-    border: 1px solid black;
-    outline: none
+    background-color: rgba(237, 230, 255, 0.64);
+
+
 }
 
 .error {
@@ -66,24 +72,85 @@
     height: 30px;
     border-radius: 30px;
     border: 1px solid black;
-    background-color: rgb(189, 154, 255);
+    background-color: rgba(189, 154, 255, 0.84);
     outline: none
 
 }
 
-.delete{
+
+.inpt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none
+}
+
+
+.black_border {
+    border: 1px solid black;
+    border-radius: 20px;
+    height: 30px;
+    padding: 2px 4px;
+    outline: none
+}
+
+
+/*//______________footer___________*/
+
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70px;
+    justify-content: space-between;
+
+}
+
+.todoList-footer {
+    display: flex;
+    width: 270px;
+    justify-content: space-evenly;
+
+}
+
+
+/*____________task_____________*/
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    align-items: center;
+}
+
+.delete_list {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+
+.delete {
+
     background-color: rgba(255, 124, 87, 0.86);
-    border:  black;
-    margin: 5px 25px;
+    border: black;
     padding: 5px 10px;
     border-radius: 50%;
     outline: none
 
 }
 
-.inpt {
+.prior {
     display: flex;
-    align-items: center;
-    outline: none
+    justify-content: space-evenly;
+    padding: 4px 4px;
+
 }
 
+.classSelect {
+    border-radius: 20px;
+}
+
+.list {
+    width: 100%;
+}

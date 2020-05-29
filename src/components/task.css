@@ -1,6 +1,11 @@
+select{
+    border-radius: 20px;
+    outline: none
+}
 
 .low {
     background-color: greenyellow;
+
 }
 
 .average {

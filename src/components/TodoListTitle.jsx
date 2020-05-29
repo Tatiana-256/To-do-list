@@ -15,7 +15,6 @@ class TodoListTitle extends React.Component {
     }
 
     deActivateEditMode = (e) => {
-
         this.props.changeTitle(e.currentTarget.value)
         this.setState({editMode: false})
     }
@@ -26,21 +25,21 @@ class TodoListTitle extends React.Component {
 
 
     render() {
+        return <div className='list'>
+            <div className='delete_list'>
+            <button className='delete' onClick={this.props.deleteToDoList}>x</button>
 
-        debugger
-        return <div className='inpt'>
-
-            {this.state.editMode ?
-                <input onBlur={this.deActivateEditMode}
-                       autoFocus={true}
-                       value={this.state.title}
-                       onChange={this.onTitleChange}
-                /> :
-                <span onClick={this.activateEditMode}>
+            </div>
+            <div className='inpt'>
+                {this.state.editMode ?
+                    <input onBlur={this.deActivateEditMode}
+                           autoFocus={true}
+                           value={this.state.title}
+                           onChange={this.onTitleChange}
+                    /> :
+                    <span onClick={this.activateEditMode}>
                             {this.props.title}
                         </span>}
-            <div>
-                <button className='delete' onClick={this.props.deleteToDoList}>x</button>
             </div>
         </div>
     }

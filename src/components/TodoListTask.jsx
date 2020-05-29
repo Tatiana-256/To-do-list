@@ -44,15 +44,12 @@ class TodoListTask extends React.Component {
     //___________________
 
     render() {
-        let classSelect = () => {
-            if (this.props.task.priority === "1") {
-                return 'low'
-            } else if (this.props.task.priority === "2") {
-                return 'average'
-            } else if (this.props.task.priority === "3") {
-                return 'high'
-            }
-        }
+
+
+        let classSelect=  this.props.task.priority === "1" ? 'low' :
+            this.props.task.priority === "2" ? 'average' :
+                this.props.task.priority === "3" ? 'high' : ''
+
         return <div className="">
             <div className="todoList-tasks">
                 <div className="todoList-task">
@@ -83,9 +80,11 @@ class TodoListTask extends React.Component {
                             </option>
                         </select>
                         <input
+                            id={this.props.task.id}
                             className='checkbox'
                             onChange={this.onIsDoneChanges}
                             type="checkbox" checked={this.props.task.status}/>
+                        <label for={this.props.task.id}/>
 
                     </div>
                 </div>

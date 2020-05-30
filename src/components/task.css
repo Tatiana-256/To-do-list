@@ -49,7 +49,7 @@ div.hov:hover div.inner {
 
 .checkbox + label {
     position: relative;
-    padding: 0 0 0 35px;
+    padding: 16px 5px 0 0px;
     cursor: pointer;
 }
 

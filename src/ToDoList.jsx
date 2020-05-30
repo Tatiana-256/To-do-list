@@ -1,22 +1,16 @@
 import React from 'react';
 import './App.css';
 import {connect} from "react-redux";
-import {api, ResultCodeEnum} from "./store/api";
-
 
 import TodoListTasks from "./components/TodoListTasks";
 import TodoListFooter from "./components/TodoListFooter";
 import TodoListTitle from "./components/TodoListTitle";
 import AddNewItemForm from "./components/AddNewItemForm";
-import {actions} from "./store/actions";
-import {
-    addTaskThunkC,
-    changeListTitleThunkC, changePriorityThunkC, changeStatusThunkC,
+import {addTaskThunkC,
+    changeListTitleThunkC, changePriorityThunkC, changeStatusThunkC, changeTaskThunkC,
     deleteTaskThunkC,
     deleteToDoListThunkC,
-    getTasksThunkC,
-    сhangeTaskThunkC
-} from "./store/reducer";
+    getTasksThunkC } from "./store/reducer";
 
 class ToDoList extends React.Component {
 
@@ -32,7 +26,7 @@ class ToDoList extends React.Component {
     //____________________getting tasks of list from API_______________________
 
     restoreState = () => {
-        this.props.setTasks(this.props.id)
+        this.props.getTasksThunkC(this.props.id)
     }
 
     state = {
@@ -48,7 +42,8 @@ class ToDoList extends React.Component {
     //   __________________add task for list __________________
 
     addItem = (title) => {
-        this.props.addTask(title, this.props.id)}
+        this.props.addTaskThunkC(title, this.props.id)
+    }
 
     changeFilter = (newFilterValue) => {
         this.setState({filterValue: newFilterValue}, () => {
@@ -60,37 +55,37 @@ class ToDoList extends React.Component {
     //___________ changing IS_DONE of task and modifying task________
 
     changeStatus = (task, status) => {
-        this.props.changeTaskStatus(this.props.id, task.id, task, status)
+        this.props.changeStatusThunkC(this.props.id, task.id, task, status)
     }
 
 
     changeTitleOfList = (title) => {
-        this.props.сhangeListTitle(this.props.id, title)
+        this.props.changeListTitleThunkC(this.props.id, title)
     }
 
 
     changeTitle = (task, title) => {
-        this.props.сhangeTask(this.props.id, task.id, task, title)
+        this.props.changeTaskThunkC(this.props.id, task.id, task, title)
     }
 
 
     //________________change priority___________________________________
 
     changePriority = (task, priority) => {
-        this.props.changePriority(this.props.id, task.id, task, priority)
+        this.props.changePriorityThunkC(this.props.id, task.id, task, priority)
     }
 
 
     //___________Delete list of tasks_________
 
     deleteToDoList = () => {
-        this.props.deleteToDoList(this.props.id)
+        this.props.deleteToDoListThunkC(this.props.id)
     };
 
     //___________Delete task_________
 
     deleteTask = (taskId) => {
-        this.props.deleteTask(this.props.id, taskId)
+        this.props.deleteTaskThunkC(this.props.id, taskId)
     };
 
     render = () => {
@@ -124,34 +119,9 @@ class ToDoList extends React.Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        deleteToDoList: (toDoListId) => {
-            dispatch(deleteToDoListThunkC(toDoListId))
-        },
-        deleteTask: (toDoListId, taskId) => {
-            dispatch(deleteTaskThunkC(toDoListId, taskId))
-        },
-        setTasks: (todolistId) => {
-            dispatch(getTasksThunkC(todolistId))
-        },
-        addTask: (newTask, toDoListId) => {
-            dispatch(addTaskThunkC(newTask, toDoListId))
-        },
-        сhangeTask: (toDoListId, taskId, task, obj) => {
-            dispatch(сhangeTaskThunkC(toDoListId, taskId, task, obj))
-        },
-        changeTaskStatus: (toDoListId, taskId, task, obj) => {
-            dispatch(changeStatusThunkC(toDoListId, taskId, task, obj))
-        },
-        changePriority: (toDoListId, taskId, task, obj) => {
-            dispatch(changePriorityThunkC(toDoListId, taskId, task, obj))
-        },
-        сhangeListTitle: (toDoListId, obj) => {
-            dispatch(changeListTitleThunkC(toDoListId, obj))
-        }
-    }
-}
-
-export default connect(null, mapDispatchToProps)(ToDoList)
+export default connect(null,
+    {deleteToDoListThunkC, deleteTaskThunkC,
+    getTasksThunkC, addTaskThunkC, changeTaskThunkC,
+    changeListTitleThunkC, changeStatusThunkC, changePriorityThunkC})
+(ToDoList)
 

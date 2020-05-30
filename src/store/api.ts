@@ -18,7 +18,7 @@ export const api = {
         return instance.post<APIRequestType<taskType>>(`/${toDoListId}/tasks`, {title: newTaskTitle})
     },
     getToDoList() {
-        return instance.get<APIRequestType<itemResponseType>>("/")
+        return instance.get<Array<itemResponseType>>("/")
     },
 
     updateTask(listId: string, taskId: string, task: any, obj: any) {
@@ -44,11 +44,13 @@ export const api = {
 
 // __________________types for API________________
 
-type itemResponseType = {
-    "id": string,
-    "title": string,
-    "addedDate": string,
-    "order": number
+export type itemResponseType = {
+    id: string,
+    title: string,
+    addedDate: string,
+    order: number,
+    tasks?: Array<taskType>
+    // toDoLists?: any
 }
 
 export enum ResultCodeEnum {

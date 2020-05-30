@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import ToDoList from "./ToDoList";
 import AddNewItemForm from "./components/AddNewItemForm";
 import {actions} from "./store/actions";
-import {api, ResultCodeEnum} from "./store/api";
+import {addToDoListThunkC, getToDoListThunkC} from "./store/reducer";
 
 class App extends React.Component {
     state = {
@@ -16,19 +16,21 @@ class App extends React.Component {
     }
 
     restoreState = () => {
-        api.getToDoList()
-            .then(res => {
-                this.props.setToDoList(res.data);
-            });
+        this.props.getToDoListThunkC()
+        // api.getToDoList()
+        //     .then(res => {
+        //         this.props.setToDoList(res.data);
+        //     });
     }
 
     addToDoList = (title) => {
-        api.createToDoList(title)
-            .then(result => {
-                if (result.data.resultCode === ResultCodeEnum.Success) {
-                    this.props.addToDoList(result.data.data.item)
-                }
-            })
+        this.props.addToDoListThunkC(title)
+        // api.createToDoList(title)
+        //     .then(result => {
+        //         if (result.data.resultCode === ResultCodeEnum.Success) {
+        //             this.props.addToDoList(result.data.data.item)
+        //         }
+        //     })
     }
 
 
@@ -53,20 +55,23 @@ const mapStateToProps = (state) => {
         toDoLists: state.toDoListReducer.toDoLists
     }
 }
+//
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         addToDoList: (newList) => {
+//             dispatch(actions.addTodolistAC(newList))
+//         },
+//
+//         setToDoList: (toDoLists) => {
+//             dispatch(actions.setToDoList(toDoLists))
+//         },
+//         addTodo: (todoTitle) => {
+//             dispatch(addToDoListThunkC(todoTitle))
+//         }
+//
+//     }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addToDoList: (newList) => {
-            dispatch(actions.addTodolistAC(newList))
-        },
-
-
-        setToDoList: (toDoLists) => {
-            dispatch(actions.setToDoList(toDoLists))
-        }
-    }
-}
-
-const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+const ConnectedApp = connect(mapStateToProps, {addToDoListThunkC, getToDoListThunkC})(App);
 export default ConnectedApp
 

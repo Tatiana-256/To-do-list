@@ -3,8 +3,7 @@ import './App.css';
 import {connect} from "react-redux";
 import ToDoList from "./ToDoList";
 import AddNewItemForm from "./components/AddNewItemForm";
-import {addToDoListThunkC, getToDoListThunkC, listTypes} from "./store/reducer";
-import {RouteComponentProps} from "react-router";
+import {addToDoListThunkC, getToDoListThunkC} from "./store/reducer";
 import {AppStateType} from "./store/store";
 
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -38,7 +37,7 @@ class App extends React.Component<PropsType> {
 
     render = () => {
         // @ts-ignore
-        let toDoList = this.props.toDoLists.map(list => <ToDoList id={list.id} title={list.title} tasks={list.tasks}/>)
+        let toDoList = this.props.toDoLists.map(list => <ToDoList key={list.id} id={list.id} title={list.title} tasks={list.tasks}/>)
         return (
             <div className="App">
                 <div className="header">

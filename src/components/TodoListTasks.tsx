@@ -15,6 +15,7 @@ type PropsType = {
 function TodoListTasks(props: PropsType) {
     let taskElements = props.tasks.map((task: taskType) => {
         return <TodoListTask
+            key={task.id}
             changeTitle={props.changeTitle}
             changeStatus={props.changeStatus}
             deleteTask={props.deleteTask}

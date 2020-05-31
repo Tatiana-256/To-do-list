@@ -1,8 +1,6 @@
 import {actions, ActionsType} from "./actions";
 import {baseThunkType} from "./store";
-import {Dispatch} from "redux";
-import {api, itemResponseType, ResultCodeEnum} from "./api";
-import exp from "constants";
+import {api, ResultCodeEnum} from "./api";
 
 export const ADD_TO_DO_LIST = 'todolist/reducer/ADD_TO_DO_LIST'
 export const ADD_TASK = 'todolist/reducer/ADD_TASK'

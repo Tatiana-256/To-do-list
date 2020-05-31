@@ -139,7 +139,6 @@ class ToDoList extends React.Component<PropsType> {
                         }
                     })}/>
                 <TodoListFooter
-                    // isHidden={this.state.isHidden}
                     filterValue={this.state.filterValue}
                     changeFilter={this.changeFilter}/>
             </div>

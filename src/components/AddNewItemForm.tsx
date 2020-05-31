@@ -1,5 +1,4 @@
 import React from 'react';
-import {taskType} from "../store/reducer";
 
 type PropsType={
     addItem: (task: string)=>void

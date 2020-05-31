@@ -24,8 +24,8 @@ export type taskType = {
     description: string
     title: string
     completed: boolean
-    status: number
-    priority: number
+    status: any
+    priority: string
     startDate: any//(datetime)
     deadline: any//required(datetime)
     id: string
@@ -147,7 +147,7 @@ export const addTaskThunkC = (title: string, toDoListId: string): thunkType => a
     }
 }
 
-export const changeTaskThunkC = (toDoListId: string, taskId: string, task: string, title: string): thunkType => async (dispatch) => {
+export const changeTaskThunkC = (toDoListId: string, taskId: string, task: taskType, title: string): thunkType => async (dispatch) => {
     let result = await api.updateTask(toDoListId, taskId, task, {title: title})
     if (result.data.resultCode === ResultCodeEnum.Success) {
         dispatch(actions.changeTaskAC(toDoListId, taskId, {title: title}))
@@ -177,14 +177,14 @@ export const deleteToDoListThunkC = (toDoListId: string): thunkType => async (di
     }
 }
 
-export const changeStatusThunkC = (toDoListId: string, taskId: string, task: string, status: boolean): thunkType => async (dispatch) => {
+export const changeStatusThunkC = (toDoListId: string, taskId: string, task: taskType, status: boolean): thunkType => async (dispatch) => {
     let result = await api.updateTask(toDoListId, taskId, task, {status: status})
     if (result.data.resultCode === ResultCodeEnum.Success) {
         dispatch(actions.changeTaskAC(toDoListId, taskId, {status: status}))
     }
 }
 
-export const changePriorityThunkC = (toDoListId: string, taskId: string, task: string, priority: string): thunkType => async (dispatch) => {
+export const changePriorityThunkC = (toDoListId: string, taskId: string, task: taskType, priority: string): thunkType => async (dispatch) => {
     let result = await api.updateTask(toDoListId, taskId, task, {priority: priority})
     if (result.data.resultCode === ResultCodeEnum.Success) {
         dispatch(actions.changeTaskAC(toDoListId, taskId, {priority: priority}))

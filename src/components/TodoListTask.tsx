@@ -1,13 +1,26 @@
 import React from 'react';
 import './task.css'
+import {taskType} from "../store/reducer";
 
-class TodoListTask extends React.Component {
+type PropsType ={
+    task: taskType
+
+
+    changeTitle: (task: taskType, value: string) => void
+    changeStatus: (task: taskType, checked: any) => void
+    changePriority: (task: taskType, value: string) => void
+    deleteTask: (id: string)=>void
+
+}
+
+
+
+class TodoListTask extends React.Component<PropsType> {
 
     state = {
         editMode: false,
         title: ''
     }
-
 
     //_________________Add area for ability to change task
 
@@ -15,22 +28,21 @@ class TodoListTask extends React.Component {
         this.setState({editMode: true})
     }
 
-    deActivateEditMode = (e) => {
+    deActivateEditMode = (e: any) => {
         this.props.changeTitle(this.props.task, e.currentTarget.value)
         this.setState({title: e.currentTarget.value, editMode: false})
     }
 
     //___________ changing IS_DONE of task and modifying task________
 
-    onIsDoneChanges = (e) => {
-
+    onIsDoneChanges = (e: any) => {
         this.props.changeStatus(this.props.task, e.currentTarget.checked)
     }
 
 
     //_____________change priority_____________
 
-    onChangePriority = (e) => {
+    onChangePriority = (e: any) => {
         this.props.changePriority(this.props.task, e.currentTarget.value)
     }
 
@@ -44,8 +56,6 @@ class TodoListTask extends React.Component {
     //___________________
 
     render() {
-
-
         let classSelect = this.props.task.priority === "1" ? 'low' :
             this.props.task.priority === "2" ? 'average' :
                 this.props.task.priority === "3" ? 'high' : ''
@@ -84,7 +94,7 @@ class TodoListTask extends React.Component {
                     className='checkbox'
                     onChange={this.onIsDoneChanges}
                     type="checkbox" checked={this.props.task.status}/>
-                <label for={this.props.task.id}/>
+                <label htmlFor={this.props.task.id}/>
 
             </div>
         </div>

@@ -43,13 +43,11 @@ div.hov:hover div.inner {
 .checkbox {
     position: absolute;
     z-index: -1;
-    opacity: 0;
-    margin: 10px 0 0 7px;
 }
 
 .checkbox + label {
     position: relative;
-    padding: 16px 5px 0 0px;
+    padding: 17px 9px 0px 0px;
     cursor: pointer;
 }
 

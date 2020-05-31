@@ -1,6 +1,11 @@
 import React from 'react';
+import {taskType} from "../store/reducer";
 
-class AddNewItemForm extends React.Component {
+type PropsType={
+    addItem: (task: string)=>void
+}
+
+class AddNewItemForm extends React.Component <PropsType>{
     state = {
         error: false,
         itemName: ''
@@ -19,14 +24,14 @@ class AddNewItemForm extends React.Component {
 
     }
 
-    onItemChange = (event) => {
+    onItemChange = (event: any) => {
         this.setState({
             error: false,
             itemName: event.currentTarget.value
         })
     }
 
-    onKeyPress = (e) => {
+    onKeyPress = (e: any) => {
         if (e.key === "Enter") {
             this.onAddItemClick()
         }

@@ -6,17 +6,44 @@ import TodoListTasks from "./components/TodoListTasks";
 import TodoListFooter from "./components/TodoListFooter";
 import TodoListTitle from "./components/TodoListTitle";
 import AddNewItemForm from "./components/AddNewItemForm";
-import {addTaskThunkC,
+import {
+    addTaskThunkC,
     changeListTitleThunkC, changePriorityThunkC, changeStatusThunkC, changeTaskThunkC,
     deleteTaskThunkC,
     deleteToDoListThunkC,
-    getTasksThunkC } from "./store/reducer";
+    getTasksThunkC, taskType
+} from "./store/reducer";
+import {AppStateType} from './store/store';
+import {RouteComponentProps} from "react-router";
 
-class ToDoList extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+type mapStateToPropsType={
+    // tasks: Array<taskType>
+}
+
+type mapDispatchToPropsType =
+    {
+    getTasksThunkC: (id: string) => void
+    addTaskThunkC: (title: string, idList: string) => void
+    changeStatusThunkC: (idList: string, taskId: string, task: taskType, status: any) => void
+    changeListTitleThunkC: (id: string, title: string) => void
+    deleteTaskThunkC: (id: string, taskId: string) => void
+    deleteToDoListThunkC: (toDoListId: string) => void
+    changePriorityThunkC: (id: string, idTask: string, task: taskType, priority: string) => void
+    changeTaskThunkC: (id: string, idTask: string, task: taskType, title: string) => void
+}
+
+type OwnProps = {
+    id: string,
+    title: string,
+    tasks: Array<taskType> | []
+
+}
+
+type PropsType = mapStateToPropsType & mapDispatchToPropsType & OwnProps & RouteComponentProps<{ id: string }>
+
+
+class ToDoList extends React.Component<PropsType> {
 
     componentDidMount() {
         this.restoreState()
@@ -30,7 +57,7 @@ class ToDoList extends React.Component {
     }
 
     state = {
-        tasks: [],
+        tasks: [] as Array<taskType>,
         filterValue: "All",
     }
 
@@ -41,11 +68,11 @@ class ToDoList extends React.Component {
 
     //   __________________add task for list __________________
 
-    addItem = (title) => {
+    addItem = (title: string) => {
         this.props.addTaskThunkC(title, this.props.id)
     }
 
-    changeFilter = (newFilterValue) => {
+    changeFilter = (newFilterValue: string) => {
         this.setState({filterValue: newFilterValue}, () => {
             this.saveState()
         })
@@ -54,24 +81,24 @@ class ToDoList extends React.Component {
 
     //___________ changing IS_DONE of task and modifying task________
 
-    changeStatus = (task, status) => {
+    changeStatus = (task: taskType, status: boolean) => {
         this.props.changeStatusThunkC(this.props.id, task.id, task, status)
     }
 
 
-    changeTitleOfList = (title) => {
+    changeTitleOfList = (title: string) => {
         this.props.changeListTitleThunkC(this.props.id, title)
     }
 
 
-    changeTitle = (task, title) => {
+    changeTitle = (task: taskType, title: string) => {
         this.props.changeTaskThunkC(this.props.id, task.id, task, title)
     }
 
 
     //________________change priority___________________________________
 
-    changePriority = (task, priority) => {
+    changePriority = (task: taskType, priority: string) => {
         this.props.changePriorityThunkC(this.props.id, task.id, task, priority)
     }
 
@@ -84,7 +111,7 @@ class ToDoList extends React.Component {
 
     //___________Delete task_________
 
-    deleteTask = (taskId) => {
+    deleteTask = (taskId: string) => {
         this.props.deleteTaskThunkC(this.props.id, taskId)
     };
 
@@ -100,7 +127,7 @@ class ToDoList extends React.Component {
                     changeStatus={this.changeStatus}
                     deleteTask={this.deleteTask}
                     changePriority={this.changePriority}
-                    tasks={tasks.filter(t => {
+                    tasks={tasks.filter((t: any) => {
                         if (this.state.filterValue === 'All') {
                             return true
                         }
@@ -111,17 +138,21 @@ class ToDoList extends React.Component {
                             return t.status === 0
                         }
                     })}/>
-                <TodoListFooter isHidden={this.state.isHidden} filterValue={this.state.filterValue}
-                                changeFilter={this.changeFilter}/>
+                <TodoListFooter
+                    // isHidden={this.state.isHidden}
+                    filterValue={this.state.filterValue}
+                    changeFilter={this.changeFilter}/>
             </div>
         );
     }
 }
 
 
-export default connect(null,
-    {deleteToDoListThunkC, deleteTaskThunkC,
-    getTasksThunkC, addTaskThunkC, changeTaskThunkC,
-    changeListTitleThunkC, changeStatusThunkC, changePriorityThunkC})
+export default connect<null, mapDispatchToPropsType, OwnProps, AppStateType>(null,
+    {
+        deleteToDoListThunkC, deleteTaskThunkC,
+        getTasksThunkC, addTaskThunkC, changeTaskThunkC,
+        changeListTitleThunkC, changeStatusThunkC, changePriorityThunkC
+    })
 (ToDoList)
 

@@ -1,7 +1,13 @@
 import React from "react";
 
+type PropsType = {
+    title: string,
+    changeTitle: (title: string) => void,
+    deleteToDoList: any
+}
 
-class TodoListTitle extends React.Component {
+
+class TodoListTitle extends React.Component<PropsType> {
     state = {
         editMode: false,
         title: this.props.title
@@ -14,12 +20,12 @@ class TodoListTitle extends React.Component {
         this.setState({editMode: true})
     }
 
-    deActivateEditMode = (e) => {
+    deActivateEditMode = (e: any) => {
         this.props.changeTitle(e.currentTarget.value)
         this.setState({editMode: false})
     }
 
-    onTitleChange(e) {
+    onTitleChange(e: any) {
         this.setState({title: e.currentTarget.value})
     }
 
@@ -27,7 +33,7 @@ class TodoListTitle extends React.Component {
     render() {
         return <div className='list'>
             <div className='delete_list'>
-            <button className='delete' onClick={this.props.deleteToDoList}>x</button>
+                <button className='delete' onClick={this.props.deleteToDoList}>x</button>
 
             </div>
             <div className='inpt'>
@@ -46,3 +52,4 @@ class TodoListTitle extends React.Component {
 }
 
 export default TodoListTitle
+

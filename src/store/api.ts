@@ -49,7 +49,7 @@ export type itemResponseType = {
     title: string,
     addedDate: string,
     order: number,
-    tasks?: Array<taskType>
+    tasks: Array<taskType>
     // toDoLists?: any
 }
 

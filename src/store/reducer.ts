@@ -17,7 +17,7 @@ export const CHANGE_LIST_TITLE = 'CHANGE_LIST_TITLE'
 export type listTypes = {
     id: string
     title: string
-    tasks?: Array<taskType>
+    tasks: Array<taskType>
 }
 
 export type taskType = {
@@ -66,12 +66,15 @@ const reducer = (state = initialState, action: ActionsType): initialStateType =>
                 })
             }
         case ADD_TASK:
+            debugger
             let newTasks = state.toDoLists.map((task: any) => {
                 if (task.id !== action.newTask.todoListId) {
                     return task
-                } else {
-                    return {...task, tasks: [...task.tasks, action.newTask]}
-                }
+                } else if (!task.tasks) {
+                    debugger
+                    return {...task, tasks: [action.newTask]}
+                } else
+                    return {...task, tasks: [action.newTask, ...task.tasks]}
             })
             return {...state, toDoLists: newTasks}
         case CHANGE_TASK:

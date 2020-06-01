@@ -20,7 +20,6 @@ export const api = {
     getToDoList() {
         return instance.get<Array<itemResponseType>>("/")
     },
-
     updateTask(listId: string, taskId: string, task: taskType, obj: any) {
         return instance.put<APIRequestType<taskType>>(`/${listId}/tasks/${taskId}`, {...task, ...obj})
     },
